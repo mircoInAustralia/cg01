@@ -44,3 +44,6 @@ OTHER_FILES += \
 CONFIG += c++11
 
 RESOURCES +=
+
+DISTFILES += \
+    shader/color_fragment.glsl

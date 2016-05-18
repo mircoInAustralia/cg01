@@ -36,7 +36,7 @@ bool intersectBox(QVector4D r_o, QVector4D r_d, QVector4D bbmin, QVector4D bbmax
     *tnear = largest_tmin;
     *tfar = smallest_tmax;
 
-    return smallest_tmax > largest_tmin;
+    return smallest_tmax >= largest_tmin;
 }
 
 

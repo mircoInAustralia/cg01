@@ -261,7 +261,7 @@ void Scene::reloadShader()
     if (m_program)
         delete m_program;
     m_program = loadShaders(QString("shader/vertex.glsl"), QString("shader/fragment.glsl"));
-
+    other_program = loadShaders(QString("shader/vertex.glsl"), QString("shader/color_fragment.glsl"));
     QFileInfo info("shader/vertex.glsl");
     qDebug() << "absoulte file path: " << info.absoluteFilePath();
 }
@@ -375,7 +375,7 @@ void Scene::mouseDoubleClickEvent(QMouseEvent *event)
 {
     //intersect ray with the bounding boxes of all models
     //the functions for this technique are defined in CGFunctions.h
-    
+    qDebug() << "double clicked " << endl;
     //calculate intersections of ray in world space
     QMatrix4x4 imvpMatrix = ( m_projection*m_view ).inverted();
     QVector4D eyeRay_n = unprojectScreenCoordinates(event->x(), event->y(), -1.0, width(), height(), imvpMatrix);
@@ -398,10 +398,12 @@ void Scene::mouseDoubleClickEvent(QMouseEvent *event)
     if ( nearestModel >= 0 && (nearestModel != m_selectedModel) )
     {
         m_selectedModel = nearestModel;
-        cout << "Model: " << m_models[m_selectedModel]->getName() << " was selected\n";
+        qDebug() << "Model: " << m_models[m_selectedModel]->getName() << " was selected\n";
     }
     else
         m_selectedModel = -1;
+
+
 }
 
 
@@ -486,14 +488,22 @@ void Scene::paintGL()
     matrix = m_view * m_projection;
     for (showFloor ? i=0 : i=1; i < m_models.size(); ++i)
     {
-        //bind the shader program
-        m_program->bind();
-        //render the model
         m_models[i]->recalculatePositions(m_view, m_projection);
-        m_models[i]->render(m_program);
-        //glDrawArrays(GL_TRIANGLES, 0, 3);
-        //release shader the program
-        m_program->release();
+
+        if(i == m_selectedModel){
+            other_program->bind();
+            m_models[i]->render(other_program);
+            other_program->release();
+        }
+        else {
+            //bind the shader program
+            m_program->bind();
+            //render the model
+            m_models[i]->render(m_program);
+            //glDrawArrays(GL_TRIANGLES, 0, 3);
+            //release shader the program
+            m_program->release();
+        }
     }
 
 }

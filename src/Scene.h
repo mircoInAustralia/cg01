@@ -81,6 +81,7 @@ Q_OBJECT
 
         //the "main" Shader program
         QGLShaderProgram *m_program;
+        QGLShaderProgram *other_program;
         
         //the transformation matrices
         QMatrix4x4 m_view, m_projection;

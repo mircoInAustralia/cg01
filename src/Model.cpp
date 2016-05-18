@@ -588,7 +588,6 @@ size_t Model::getNtexCoords()
 void Model::render(QGLShaderProgram *program)
 {
     program->setUniformValue( program->uniformLocation("someMatrix"), theMatrix );
-
     unsigned int positionAttributeID, normalAttributeID, texCoordAttributeID;
     positionAttributeID = program->attributeLocation("position");
     normalAttributeID = program->attributeLocation("normal");
@@ -633,8 +632,7 @@ void Model::render(QGLShaderProgram *program)
 }
 void Model::recalculatePositions(QMatrix4x4 view, QMatrix4x4 projection)
 {
-    theMatrix = getTransformations() * view * projection;
-    qDebug() << "recalculated to " << theMatrix << endl << endl;
+    theMatrix =  projection * view * getTransformations();
 }
 
 

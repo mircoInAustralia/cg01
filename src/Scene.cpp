@@ -304,10 +304,7 @@ void Scene::resizeGL(int width, int height)
      const qreal zNear = 0.1f, zFar = 400.0f, fov = 60.0f;
      m_projection.setToIdentity();
      m_projection.perspective(fov, aspect, zNear, zFar);
-     for (int i = 0; i < m_models.size(); ++i)
-     {
-         m_models[i]->recalculatePositions(m_view, m_projection);
-     }
+
 }
 
 void Scene::mouseMoveEvent(QMouseEvent *event)
@@ -492,9 +489,9 @@ void Scene::paintGL()
         //bind the shader program
         m_program->bind();
         //render the model
-
+        m_models[i]->recalculatePositions(m_view, m_projection);
         m_models[i]->render(m_program);
-        glDrawArrays(GL_TRIANGLES, 0, 3);
+        //glDrawArrays(GL_TRIANGLES, 0, 3);
         //release shader the program
         m_program->release();
     }

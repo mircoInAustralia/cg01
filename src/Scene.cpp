@@ -506,4 +506,11 @@ void Scene::paintGL()
         }
     }
 
+    for(int j = 0; j < m_lights.size(); ++j){
+        m_lights[j]->recalculatePositions(m_view, m_projection);
+        m_program->bind();
+        m_lights[j]->render(m_program);
+        m_program->release();
+    }
+
 }

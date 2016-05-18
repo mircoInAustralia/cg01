@@ -90,6 +90,8 @@ class Model
         void calcBB();
         //initialize the opengl buffers
         void initBufferObjects();
+        QMatrix4x4 theMatrix;
+
 
 
     private:
@@ -104,7 +106,6 @@ class Model
         
         //the tranformation matrix
         QMatrix4x4 trafoMatrix;
-        QMatrix4x4 theMatrix;
         //reorder the elements, so that everything complies with the OpenGL format
         void reorder();
 };

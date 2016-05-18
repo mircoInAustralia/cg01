@@ -86,6 +86,7 @@ QVector3D Light::getSpecular()
 
 void Light::render(QGLShaderProgram *program)
 {
+    program->setUniformValue( program->uniformLocation("someMatrix"), theMatrix );
     unsigned int positionAttributeID, normalAttributeID, texCoordAttributeID;
     positionAttributeID = program->attributeLocation("position");
     normalAttributeID = program->attributeLocation("normal");
@@ -100,6 +101,7 @@ void Light::render(QGLShaderProgram *program)
     program->setAttributeArray(normalAttributeID, getNormals());
     program->setAttributeArray(texCoordAttributeID, getTexCoords());
 
+    //qDebug() << "ambient " << ambient << endl << " diffuse " << diffuse << endl << " sepcular " << specular << endl;
     program->setUniformValue( program->uniformLocation("ambient"), ambient);
     program->setUniformValue( program->uniformLocation("diffuse"), diffuse);
     program->setUniformValue( program->uniformLocation("specular"), specular);

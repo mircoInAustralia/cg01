@@ -312,7 +312,6 @@ void Scene::resizeGL(int width, int height)
 
 void Scene::mouseMoveEvent(QMouseEvent *event)
 {
-    qDebug() << "EVENT!!!";
     if (lastPos.x() == -1 || lastPos.y() == -1)
         return;
 

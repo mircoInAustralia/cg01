@@ -31,7 +31,7 @@ class Model
 
         //render the model
         virtual void render(QGLShaderProgram *program);
-        virtual void renderWithLight(QGLShaderProgram *program, QVector3D lightCentre);
+        virtual void renderWithLight(QGLShaderProgram *program, QVector3D lightCentre, QVector3D ambient, QVector3D diffuse, QVector3D specular);
 
         //static functions to read a model from an obj file
         static Model* importOBJFile(QString fileName);

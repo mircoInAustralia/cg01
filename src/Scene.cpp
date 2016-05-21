@@ -230,6 +230,8 @@ void Scene::addLight()
     LightDialog ld(l.get());
     if (ld.exec())
     {
+        qDebug() << "ambient: " << l->getAmbient() << " diffuse: " << l->getDiffuse() << "specular" << l->getSpecular() << endl;
+
         m_lights.push_back( l );
         m_models.push_back( m_lights.back() );
     }
@@ -501,7 +503,7 @@ void Scene::paintGL()
             //render the model
             m_models[i]->render(m_program);
             for(int j = 0; j < m_lights.size(); ++j){
-                m_models[i]->renderWithLight(m_program, m_lights[j]->getBoundingBox().center);
+                m_models[i]->renderWithLight(m_program, m_lights[j]->getBoundingBox().center, m_lights[j]->getAmbient(), m_lights[j]->getDiffuse(), m_lights[j]->getSpecular());
 
                 }
             //glDrawArrays(GL_TRIANGLES, 0, 3);

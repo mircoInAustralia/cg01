@@ -608,7 +608,7 @@ void Model::render(QGLShaderProgram *program)
     texCoordBuffer.bind();
     program->setAttributeBuffer(texCoordAttributeID, GL_FLOAT, 0, 2);
     texCoordBuffer.release();
-
+    //qDebug() << "position: " << positions[0] << endl << "normals: " << normals[0] << endl;
     for (size_t i=0; i<meshes.size(); ++i)
     {
         //set the texture (if there is any)
@@ -631,12 +631,12 @@ void Model::render(QGLShaderProgram *program)
 
 }
 
-void Model::renderWithLight(QGLShaderProgram *program, QVector3D lightCentre){
+void Model::renderWithLight(QGLShaderProgram *program, QVector3D lightCentre, QVector3D ambient, QVector3D diffuse, QVector3D specular){
     for (size_t i=0; i<meshes.size(); ++i)
     {
-        program->setUniformValue( program->uniformLocation("ambient"), materials[meshes[i].material].ambient);
-        program->setUniformValue( program->uniformLocation("diffuse"), materials[meshes[i].material].diffuse);
-        program->setUniformValue( program->uniformLocation("specular"), materials[meshes[i].material].specular);
+        program->setUniformValue( program->uniformLocation("ambient"), ambient);
+        program->setUniformValue( program->uniformLocation("diffuse"), diffuse);
+        program->setUniformValue( program->uniformLocation("specular"), specular);
         program->setUniformValue( program->uniformLocation("shininess"), materials[meshes[i].material].shininess);
         program->setUniformValue( program->uniformLocation("lightPosition"), lightCentre);
     }

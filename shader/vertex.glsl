@@ -9,11 +9,15 @@ uniform vec3 lightPosition;
 
 out vec3 nNormal;
 out vec3 lNormal;
+out vec3 rNormal;
+out vec3 aNormal;
 
 void main(void)
 {
     gl_Position = someMatrix * vec4(position, 1.0);
-    nNormal = normalize(gl_Position.xyz * normal);
+    nNormal = normal;//normalize(gl_Position.xyz * normal);
     lNormal = normalize(lightPosition - gl_Position.xyz);
+    rNormal = (lNormal * nNormal) / nNormal;
+    aNormal = gl_Position.xyz;
 }
 

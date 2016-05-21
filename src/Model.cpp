@@ -630,6 +630,19 @@ void Model::render(QGLShaderProgram *program)
 
 
 }
+
+void Model::renderWithLight(QGLShaderProgram *program, QVector3D lightCentre){
+    for (size_t i=0; i<meshes.size(); ++i)
+    {
+        program->setUniformValue( program->uniformLocation("ambient"), materials[meshes[i].material].ambient);
+        program->setUniformValue( program->uniformLocation("diffuse"), materials[meshes[i].material].diffuse);
+        program->setUniformValue( program->uniformLocation("specular"), materials[meshes[i].material].specular);
+        program->setUniformValue( program->uniformLocation("shininess"), materials[meshes[i].material].shininess);
+        program->setUniformValue( program->uniformLocation("lightPosition"), lightCentre);
+    }
+
+}
+
 void Model::recalculatePositions(QMatrix4x4 view, QMatrix4x4 projection)
 {
     theMatrix =  projection * view * getTransformations();

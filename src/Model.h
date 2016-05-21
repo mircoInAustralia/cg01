@@ -1,6 +1,7 @@
 #ifndef MODEL_H
 #define MODEL_H
 
+#include <memory>
 #include <vector>
 #include <QVector2D>
 #include <QVector3D>
@@ -10,6 +11,7 @@
 #include <QGLFunctions>
 
 #include "CGTypes.h"
+
 
 struct BoundingBox
 {
@@ -29,6 +31,7 @@ class Model
 
         //render the model
         virtual void render(QGLShaderProgram *program);
+        virtual void renderWithLight(QGLShaderProgram *program, QVector3D lightCentre);
 
         //static functions to read a model from an obj file
         static Model* importOBJFile(QString fileName);

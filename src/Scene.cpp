@@ -500,17 +500,21 @@ void Scene::paintGL()
             m_program->bind();
             //render the model
             m_models[i]->render(m_program);
+            for(int j = 0; j < m_lights.size(); ++j){
+                m_models[i]->renderWithLight(m_program, m_lights[j]->getBoundingBox().center);
+
+                }
             //glDrawArrays(GL_TRIANGLES, 0, 3);
             //release shader the program
             m_program->release();
         }
     }
 
-    for(int j = 0; j < m_lights.size(); ++j){
+    /*for(int j = 0; j < m_lights.size(); ++j){
         m_lights[j]->recalculatePositions(m_view, m_projection);
         m_program->bind();
         m_lights[j]->render(m_program);
         m_program->release();
-    }
+    }*/
 
 }

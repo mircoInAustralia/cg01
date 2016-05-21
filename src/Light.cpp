@@ -102,11 +102,11 @@ void Light::render(QGLShaderProgram *program)
     program->setAttributeArray(texCoordAttributeID, getTexCoords());
 
     //qDebug() << "ambient " << ambient << endl << " diffuse " << diffuse << endl << " sepcular " << specular << endl;
-    program->setUniformValue( program->uniformLocation("ambient"), ambient);
+    /*program->setUniformValue( program->uniformLocation("ambient"), ambient);
     program->setUniformValue( program->uniformLocation("diffuse"), diffuse);
     program->setUniformValue( program->uniformLocation("specular"), specular);
     program->setUniformValue( program->uniformLocation("shininess"), 96.0f);
-    program->setUniformValue( program->uniformLocation("alpha"), 1.0f);
+    program->setUniformValue( program->uniformLocation("alpha"), 1.0f);*/
 
     glDrawArrays(GL_TRIANGLES, 0, positions.size());
 }
